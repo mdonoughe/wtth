@@ -1,11 +1,11 @@
 # Welcome to the Horde
 
-This is a program that watches HVZ Source and posts messages to Twitter when people are zombified.
+This is a program that watches [HVZ Source](http://humansvszombies.org/) and posts messages to [Twitter](http://twitter.com/) when people are zombified. See [@wtthumd](http://twitter.com/wtthumd) for an example(game starts 2009-09-27 at about 22:00).
 
 Please only run one WTTH or similar per game. Check to see if your game already has one before starting your own. Nothing is gained by running duplicates, and it wastes the resources of Twitter and HVZ Source.
 
 ## Installation
-WTTH is written in Ruby and requires the nokogiri, and twitter gems.
+WTTH is written in [Ruby](http://www.ruby-lang.org/) and requires the [nokogiri](http://nokogiri.rubyforge.org/) and [twitter](http://twitter.rubyforge.org/) [gems](http://docs.rubygems.org/).
 
 After you've got everything installed, run `twitterinit.rb` to give the program access to a Twitter account. I'd suggest not using your usual Twitter account for this.
 
