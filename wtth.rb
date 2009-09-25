@@ -15,6 +15,7 @@ def get_new_zombies
 
   uri = URI.parse($config[:player_list_uri])
   preq = Net::HTTP::Post.new(uri.path)
+  preq['user-agent'] = 'welcome to the horde 0'
   preq.set_form_data({'faction' => 'h', 'sort_by' => 'kd', 'order' => 'd', 'show_killed' => '1', 'submit' => 'Refresh'}, '&')
 
   req = Net::HTTP.new(uri.host, uri.port)
