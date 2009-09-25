@@ -5,7 +5,7 @@ This is a program that watches HVZ Source and posts messages to Twitter when peo
 Please only run one WTTH or similar per game. Check to see if your game already has one before starting your own. Nothing is gained by running duplicates, and it wastes the resources of Twitter and HVZ Source.
 
 ## Installation
-WTTH is written in Ruby and requires the nokogiri, twitter, yaml gems.
+WTTH is written in Ruby and requires the nokogiri, and twitter gems.
 
 After you've got everything installed, run `twitterinit.rb` to give the program access to a Twitter account. I'd suggest not using your usual Twitter account for this.
 
