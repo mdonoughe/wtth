@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'net/http'
+require 'nokogiri'
+require 'twitter'
+require 'yaml'
+
+wtth_path = File.join(File.expand_path(File.dirname(__FILE__)), '..', 'lib', 'wtth')
+require File.join(wtth_path, 'config')
+require File.join(wtth_path, 'hvzsource')
+require File.join(wtth_path, 'twitter')
+
+module WTTH
+  VERSION = '1.0.0'
+  load_config
+
+  if ARGV.length > 0 and ARGV[0] == 'init'
+    twitter_init
+    exit 0
+  end
+
+  unless twitter_is_authorized?
+    puts 'You have not yet authorized WTTH to access Twitter.'
+    puts 'Please run `wtth init` first'
+    exit 1
+  end
+
+  # the presense of backlog indicates that we have at least one tweet worth of
+  # new zombies fetched already
+  to_welcome = CONFIG[:backlog]
+  to_welcome = get_new_zombies if to_welcome == nil
+
+  if to_welcome != []
+    this_batch = []
+    recovery = []
+    size = 0
+    last_welcomed = nil
+
+    # get the least recent kills, no more than 140 characters worth
+    until size > 140 or to_welcome.empty?
+      zombie = to_welcome.last
+      size += zombie[:name].length
+      size += 2 if this_batch.length > 0
+      if size <= 140
+        this_batch << zombie[:name]
+        last_welcomed = zombie
+        recovery << to_welcome.pop
+      end
+    end
+
+    # can we avoid hvzsource next run?
+    size = 0
+    to_welcome.reverse_each do |zombie|
+      size += 2 unless size == 0
+      size += zombie[:name].length
+      break if size >= 140
+    end
+    if size >= 140
+      CONFIG[:backlog] = to_welcome
+    else
+      CONFIG[:backlog] = nil
+    end
+
+    # welcome with the most recent first so things are in order on twitter
+    this_batch.reverse!
+
+    begin
+      tweet(this_batch.join(', '))
+      # remember where we left off
+      CONFIG[:last_welcomed] = last_welcomed
+    rescue Twitter::TwitterError
+      puts "TwitterError #{$!}"
+      # throw the message onto the backlog so we can try again next time
+      CONFIG[:backlog] = to_welcome + recovery.reverse
+    end
+  end
+
+  save_config
+end
