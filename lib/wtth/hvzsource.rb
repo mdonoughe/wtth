@@ -21,7 +21,7 @@ module WTTH
           name = cells[i * 3 + 3].content
           tod = cells[i * 3 + 5].content
           kill = {:name => name, :tod => tod}
-          break if kill == CONFIG[:last_welcomed]
+          break if CONFIG[:last_welcomed] != nil and (kill == CONFIG[:last_welcomed] or tod < CONFIG[:last_welcomed][:tod])
           to_welcome << kill
         end
       end
