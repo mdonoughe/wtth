@@ -35,7 +35,6 @@ module WTTH
     this_batch = []
     recovery = []
     size = 0
-    last_welcomed = nil
 
     # get the least recent kills, no more than 140 characters worth
     until size > 140 or to_welcome.empty?
@@ -44,7 +43,6 @@ module WTTH
       size += 2 if this_batch.length > 0
       if size <= 140
         this_batch << zombie
-        last_welcomed = zombie
         recovery << to_welcome.pop
       end
     end
