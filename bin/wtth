@@ -12,7 +12,7 @@ require File.join(wtth_path, 'hvzsource')
 require File.join(wtth_path, 'twitter')
 
 module WTTH
-  VERSION = '1.2.0'
+  VERSION = '1.2.1'
   load_config
 
   if ARGV.length > 0 and ARGV[0] == 'init'
@@ -26,10 +26,13 @@ module WTTH
     exit 1
   end
 
-  # the presense of backlog indicates that we have at least one tweet worth of
-  # new zombies fetched already
+  # get new zombies and zombies that weren't reported last time
   to_welcome = CONFIG[:backlog]
-  to_welcome = get_new_zombies if to_welcome == nil
+  if to_welcome == nil
+    to_welcome = get_new_zombies
+  elsif to_welcome.join(', ').length < 140
+    to_welcome = get_new_zombies + to_welcome
+  end
 
   if to_welcome != []
     this_batch = []
@@ -47,18 +50,8 @@ module WTTH
       end
     end
 
-    # can we avoid hvzsource next run?
-    size = 0
-    to_welcome.reverse_each do |zombie|
-      size += 2 unless size == 0
-      size += zombie.length
-      break if size >= 140
-    end
-    if size >= 140
-      CONFIG[:backlog] = to_welcome
-    else
-      CONFIG[:backlog] = nil
-    end
+    # remember who we haven't reported
+    CONFIG[:backlog] = to_welcome
 
     # welcome with the most recent first so things are in order on twitter
     this_batch.reverse!
