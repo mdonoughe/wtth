@@ -2,6 +2,7 @@ module WTTH
   private
   def self.get_new_zombies
     to_welcome = []
+    zombies = []
 
     puts "fetching from hvzsource"
 
@@ -19,13 +20,12 @@ module WTTH
         cells = doc.xpath('//form/table//td')
         ((cells.length - 3) / 3).times do |i|
           name = cells[i * 3 + 3].content
-          tod = cells[i * 3 + 5].content
-          kill = {:name => name, :tod => tod}
-          break if CONFIG[:last_welcomed] != nil and (kill == CONFIG[:last_welcomed] or tod < CONFIG[:last_welcomed][:tod])
-          to_welcome << kill
+          zombies << name
+          to_welcome << name unless CONFIG[:zombies] != nil and CONFIG[:zombies].include?(name)
         end
       end
     end
+    CONFIG[:zombies] = zombies
     return to_welcome
   end
 end

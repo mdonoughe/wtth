@@ -12,7 +12,7 @@ require File.join(wtth_path, 'hvzsource')
 require File.join(wtth_path, 'twitter')
 
 module WTTH
-  VERSION = '1.1.0'
+  VERSION = '1.2.0'
   load_config
 
   if ARGV.length > 0 and ARGV[0] == 'init'
@@ -40,10 +40,10 @@ module WTTH
     # get the least recent kills, no more than 140 characters worth
     until size > 140 or to_welcome.empty?
       zombie = to_welcome.last
-      size += zombie[:name].length
+      size += zombie.length
       size += 2 if this_batch.length > 0
       if size <= 140
-        this_batch << zombie[:name]
+        this_batch << zombie
         last_welcomed = zombie
         recovery << to_welcome.pop
       end
@@ -53,7 +53,7 @@ module WTTH
     size = 0
     to_welcome.reverse_each do |zombie|
       size += 2 unless size == 0
-      size += zombie[:name].length
+      size += zombie.length
       break if size >= 140
     end
     if size >= 140
@@ -67,8 +67,6 @@ module WTTH
 
     begin
       tweet(this_batch.join(', '))
-      # remember where we left off
-      CONFIG[:last_welcomed] = last_welcomed
     rescue Twitter::TwitterError
       puts "TwitterError #{$!}"
       # throw the message onto the backlog so we can try again next time

@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name = 'wtth'
-  s.version = '1.1.0'
+  s.version = '1.2.0'
 
   s.authors = ['Matthew Donoughe']
-  s.date = '2009-09-26'
+  s.date = '2009-09-27'
   s.description = 'Welcome to the Horde is a program that tweets when people join the zombie horde(in humans vs. zombies).'
   s.email = 'mdonoughe@gmail.com'
   s.extra_rdoc_files = ['LICENSE', 'README.markdown']
