@@ -7,7 +7,7 @@ Please only run one WTTH or similar per game. Check to see if your game already 
 == Installation
 WTTH is written in {Ruby}[http://www.ruby-lang.org/] and requires the {nokogiri}[http://nokogiri.rubyforge.org/] and {twitter}[http://twitter.rubyforge.org/] {gems}[http://docs.rubygems.org/].
 
-WTTH now has a gem in the {GitHub gem source}[http://gems.github.com/] and can be installed as <tt>mdonoughe-wtth</tt>. This should install all the dependencies and put <tt>wtth</tt> into your path like magic.
+WTTH now has a gem in {Gemcutter}[http://gemcutter.org/] and can be installed as <tt>wtth</tt>. This should install all the dependencies and put <tt>wtth</tt> into your path like magic. If you'd previously installed <tt>mdonoughe-wtth</tt> from Github's gem service, you should uninstall that version before installing the new one.
 
 After you've gotten everything installed, run <tt>wtth init</tt> to give the program access to a Twitter account. I'd suggest not using your usual Twitter account for this.
 
