@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.date = '2009-09-27'
   s.description = 'Welcome to the Horde is a program that tweets when people join the zombie horde(in humans vs. zombies).'
   s.email = 'mdonoughe@gmail.com'
-  s.extra_rdoc_files = ['LICENSE', 'README.markdown']
-  s.files = ['README.markdown', 'bin/wtth', 'lib/wtth/config.rb', 'lib/wtth/hvzsource.rb', 'lib/wtth/twitter.rb']
+  s.extra_rdoc_files = ['LICENSE', 'README.rdoc']
+  s.files = ['README.rdoc', 'bin/wtth', 'lib/wtth/config.rb', 'lib/wtth/hvzsource.rb', 'lib/wtth/twitter.rb']
   s.executable = 'wtth'
   s.has_rdoc = true
-  s.rdoc_options = ['--main', 'README.markdown']
+  s.rdoc_options = ['--main', 'README.rdoc']
   s.homepage = 'http://github.com/mdonoughe/wtth'
   s.require_paths = ['lib']
   s.summary = s.description
