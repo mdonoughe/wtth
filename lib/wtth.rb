@@ -58,6 +58,10 @@ module WTTH
 
       begin
         tweet(this_batch.join(', '))
+      rescue Twitter::TwitterUnavailable
+        puts "TwitterUnavailable #{$!}"
+        # throw the message onto the backlog so we can try again next time
+        CONFIG[:backlog] = to_welcome + recovery.reverse
       rescue Twitter::TwitterError
         puts "TwitterError #{$!}"
         # throw the message onto the backlog so we can try again next time
