@@ -25,7 +25,7 @@ module WTTH
         end
       end
     end
-    CONFIG[:zombies] = zombies
+    CONFIG[:zombies] = zombies unless zombies.length == 0
     return to_welcome
   end
 end
