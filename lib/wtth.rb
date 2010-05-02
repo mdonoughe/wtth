@@ -6,7 +6,6 @@ require 'yaml'
 
 wtth_path = File.join(File.expand_path(File.dirname(__FILE__)), 'wtth')
 require File.join(wtth_path, 'config')
-require File.join(wtth_path, 'hvzsource')
 require File.join(wtth_path, 'twitter')
 
 module WTTH
